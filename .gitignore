@@ -39,3 +39,9 @@ node_modules/
 
 # Coverage directories
 coverage/
+
+# Manual backups / editor leftovers (never ship these) — 2026-10-06
+*.bak
+*.bak_*
+*.orig
+*.tmp

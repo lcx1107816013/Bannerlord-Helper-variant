@@ -1,6 +1,29 @@
 MIT License
 
-Copyright (c) 2024 marowaki
+Copyright (c) 2026 Bannerlord.Helper variant contributors
+
+────────────────────────────────────────────────────────────────────────────────
+Upstream notice
+────────────────────────────────────────────────────────────────────────────────
+
+This is an **unofficial variant** based on Bannerlord.Helper:
+
+    https://github.com/Gengark/Bannerlord-Helper
+
+    Copyright (c) 2024 marowaki
+
+Bannerlord.Helper is licensed under the MIT License. Its copyright notice is
+reproduced above to satisfy the MIT condition that "the above copyright notice
+and this permission notice shall be included in all copies or substantial
+portions of the Software".
+
+This variant is **not affiliated with or endorsed by** the upstream author.
+Modifications are listed in NOTICE.
+The `mcp/` directory (an MCP stdio server) is **our own addition**, not upstream code.
+
+────────────────────────────────────────────────────────────────────────────────
+MIT License text (applies to this project, the upstream above, and the notices herein)
+────────────────────────────────────────────────────────────────────────────────
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

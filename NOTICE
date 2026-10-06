@@ -1,0 +1,77 @@
+# NOTICE
+
+Bannerlord.Helper variant (with MCP server) — unofficial
+Copyright (c) 2026 Bannerlord.Helper variant contributors — MIT (see `LICENSE`).
+
+## What this is
+
+An **unofficial variant** of Bannerlord.Helper, plus **our own MCP stdio server**
+wrapped around its library layer.
+
+- **Upstream**: <https://github.com/Gengark/Bannerlord-Helper>
+- **Upstream license**: MIT — Copyright (c) 2024 marowaki
+- **Upstream commit this variant was based on**: `9fd0eca`
+  ("Update docs/images/usage-*.png")
+- **Upstream package version**: `bannerlord-helper` 0.3.1
+- **Variant license**: MIT (see `LICENSE`)
+- **Not affiliated with or endorsed by** the upstream author.
+
+## Our changes relative to upstream
+
+### 1. `mcp/` — an MCP server (our own code, not upstream)
+
+`mcp/server.ts` (752 lines, 10 tools) is **entirely our addition**. It is **not**
+upstream code; no upstream license obligation attaches to it beyond this project's own.
+
+Why it exists (the file's own header explains this): the `bh` CLI is **interactive** —
+every command that touches a mod asks the human to pick one from an `@inquirer/search`
+prompt — and the bundled `dist/bannerlord-helper.js` also trips over a tsup treeshaking
+bug (`assignWith is not defined`) in `info` / `search`.
+
+The server therefore **does not shell out to the CLI for mod-scoped work**. Instead it
+**reuses upstream's own library layer** (`src/helper`, `src/core`, `src/api`) and supplies
+the module selection as a normal tool argument, so every tool is non-interactive.
+
+| # | Tool |
+|---|---|
+| 1 | `bh_list_languages` |
+| 2 | `bh_resolve_language` |
+| 3 | `bh_list_local_modules` |
+| 4 | `bh_search_nexusmods` |
+| 5 | `bh_module_details` |
+| 6 | `bh_generate_template` |
+| 7 | `bh_translate_module` |
+| 8 | `bh_create_external_translation` |
+| 9 | `bh_identifier` |
+| 10 | `bh_run_cli` |
+
+> `bh_run_cli` is the only tool that spawns the bundled CLI (upstream's own
+> `dist/bannerlord-helper.js`).
+
+### 2. `src/api/nexusmod.ts` — rewritten to the Nexus GraphQL v2 API
+
+Large rewrite (+287 / −153 lines, 434 changed). Now talks to the **official Nexus Mods
+GraphQL API** (<https://api.nexusmods.com/v2/graphql>) instead of the previous approach:
+
+- added constants for the game domain / id (`mountandblade2bannerlord`, `3174`) and the API key URL;
+- added `MOD_FIELDS` / `SEARCH_DOCUMENT` / `DETAIL_DOCUMENT` GraphQL documents;
+- added BBCode→text and HTML-entity decoding for mod descriptions,
+  plus a `truncate()` helper;
+- the API key is still read **only from the environment**
+  (`NEXUS_API_KEY`, falling back to `NEXUSMODS_API_KEY`) — **no credential is hard-coded**.
+
+### 3. `package.json`
+
+- added `overrides: { "lodash.template": "4.5.0" }` and pinned that dependency exactly;
+- added `@modelcontextprotocol/sdk` (used by our `mcp/` server).
+
+## Credentials
+
+This project **requires** a Nexus Mods personal API key for its Nexus tools.
+The key is read from the environment only and is **never** stored in this repository.
+Do not commit a file containing the key value.
+
+## Trademarks
+
+Project names are used only to identify the origin of the adapted material.
+Nothing here grants trademark or endorsement rights.
