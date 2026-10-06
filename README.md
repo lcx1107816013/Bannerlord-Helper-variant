@@ -18,6 +18,30 @@ English | [简体中文](README.zh-CN.md) | [Türkçe](README.tr-TR.md)
 > For detail, see [node-steam-library](https://github.com/kabeep/node-steam-library)
 > and [winreg](https://github.com/fresc81/node-winreg).
 
+> [!WARNING]
+> **This is a VARIANT (an unofficial fork), not the upstream original.**
+>
+> Upstream: [`Gengark/Bannerlord-Helper`](https://github.com/Gengark/Bannerlord-Helper) (MIT).
+> This repository modifies it; **see [`NOTICE`](./NOTICE)** for what changed and why.
+> We claim no affiliation with, or endorsement by, the upstream author.
+> The upstream copyright and license text are preserved in [`LICENSE`](./LICENSE).
+>
+> Main changes relative to upstream (details in `NOTICE`):
+> - **Added `mcp/server.ts`** — an MCP server (**our own code**, not upstream's)
+>   exposing **10 tools**; upstream ships only a CLI.
+>   ⚠️ Two of them are **write** operations (`bh_identifier` rewrites
+>   `ModuleData\*.xml`; `bh_create_external_translation` creates sibling
+>   directories under the game's `Modules\`).
+> - **Migrated the Nexus API client to the official GraphQL v2 API** — upstream's
+>   two endpoints are dead (`api.nexusmods.com/mods` now 404s;
+>   the Cheerio page scrape gets 403 from Cloudflare).
+>   The key is read **only from the environment**; no key is hardcoded.
+> - **Fixed a bug that destroyed the real error message**: with `NEXUS_API_KEY`
+>   unset you used to see `this.column is not a function` instead of
+>   "A Nexus Mods personal API key is required…".
+>
+> ★ The upstream `origin` remote is **kept**, so upstream updates can still be followed.
+
 ## 📖 Introduction
 
 A collection of useful tools dedicated to making i18n works easier for Mount & Blade II: Bannerlord mod creators.
