@@ -41,6 +41,12 @@ English | [简体中文](README.zh-CN.md) | [Türkçe](README.tr-TR.md)
 >   "A Nexus Mods personal API key is required…".
 >
 > ★ The upstream `origin` remote is **kept**, so upstream updates can still be followed.
+>
+> 📘 **AI agents: read [`AGENTS.md`](./AGENTS.md)** — it covers installing this repo,
+> wiring up the bundled MCP server, the 10 tools (including which **two write to disk**),
+> the optional Nexus API key, and verification/uninstall steps.
+> ⚠️ **This repo is NOT a game mod** — it has no `SubModule.xml`, so **do not** put it
+> in the game's `Modules\` folder.
 
 ## 📖 Introduction
 
